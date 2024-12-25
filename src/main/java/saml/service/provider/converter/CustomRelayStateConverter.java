@@ -1,11 +1,9 @@
-package saml.service.provider.resolver;
+package saml.service.provider.converter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
-
-import java.util.UUID;
 
 public class CustomRelayStateConverter implements Converter<HttpServletRequest, String> {
 

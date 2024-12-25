@@ -10,7 +10,7 @@ import org.springframework.security.saml2.provider.service.web.authentication.Sa
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import saml.service.provider.handler.SamlAuthenticationSuccessHandler;
-import saml.service.provider.resolver.CustomRelayStateConverter;
+import saml.service.provider.converter.CustomRelayStateConverter;
 
 @Configuration(proxyBeanMethods = false)
 public class MySamlRelyingPartyConfiguration {
