@@ -16,12 +16,16 @@ public class SamlAuthenticationSuccessHandler implements AuthenticationSuccessHa
         // Extract RelayState
         String relayState = request.getParameter("RelayState");
         log.info("relay state from saml response "+relayState);
+        String contextPath = request.getContextPath();
         // Redirect to the URL stored in RelayState
         if (relayState != null && !relayState.isEmpty()) {
-            response.sendRedirect(relayState);
+            response.sendRedirect(contextPath+"/logged-in");
+            //response.sendRedirect(relayState);
         } else {
-            String contextPath = request.getContextPath();
             response.sendRedirect(contextPath+"/logged-in");
         }
     }
+    private void isValidURi(String relay){
+    }
+
 }

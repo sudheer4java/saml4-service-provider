@@ -28,7 +28,8 @@ public class MySamlRelyingPartyConfiguration {
             "/public/**",
             "/saml/**",
             "initiateSSO/**",
-            "http://localhost:8088/index.html"
+            "http://localhost:8088/index.html",
+            "/relaystate-redirect"
     };
     private static final String[] AUTH_SSO_LIST = {
             "/saml2/authenticate/**",
@@ -65,7 +66,7 @@ public class MySamlRelyingPartyConfiguration {
         http.saml2Login(saml2 -> saml2.authenticationRequestResolver(samlAuthReqResolver)
                 .successHandler(customSuccessHandler()));
 
-        http.saml2Login(saml2 -> saml2.loginProcessingUrl("/saml/sso/ibeam/**"));
+        http.saml2Login(saml2 -> saml2.loginProcessingUrl("/login/saml2/sso/ibeam/**"));
         http.saml2Logout(saml2 -> saml2
                 .logoutUrl("/saml/sp/logout") //mvc post url
                 .logoutRequest(req -> req.logoutUrl("/saml/sp/logout"))
