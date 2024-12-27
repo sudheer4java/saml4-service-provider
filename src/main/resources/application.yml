@@ -1,7 +1,7 @@
 server:
   port: 8083
   servlet:
-    context-path: /this-is-sp2
+    context-path: ""
   error:
     include-exception: true
     include-message: always
