@@ -29,22 +29,24 @@ public class SamlAuthenticationSuccessHandler implements AuthenticationSuccessHa
             byte[] decodedBytes = java.util.Base64.getDecoder().decode(samlResponse);
             String decodedSamlResponse = new String(decodedBytes, java.nio.charset.StandardCharsets.UTF_8);
             log.info("SAML Response: " + decodedSamlResponse);
-
-            // Perform custom actions with the SAML response, if needed
         } */
+        // Perform custom actions with the SAML response, if needed
         if (relayState != null && !relayState.isEmpty()) {
             // Redirect to the RelayState URL
             assert samlResponse != null;
-            // Generate a unique identifier for the session storage
-            String sessionId = UUID.randomUUID().toString();
+            // Build an HTML form with auto-submit
+            String htmlResponse = "<html>" +
+                    "<body onload='document.forms[0].submit()'>" +
+                    "<form action='" + relayState + "' method='POST'>" +
+                    "<input type='hidden' name='SAMLResponse' value='" + samlResponse + "' />" +
+                    "<input type='hidden' name='RelayState' value='" + relayState + "' />" +
+                    "</form>" +
+                    "</body>" +
+                    "</html>";
 
-            // Store the SAMLResponse and RelayState in the session
-            HttpSession session = request.getSession();
-            session.setAttribute("SAMLResponse-" + sessionId, samlResponse);
-            session.setAttribute("RelayState-" + sessionId, relayState);
-
-            // Redirect to the RelayState URL with the session ID
-            response.sendRedirect(relayState + "?sessionId=" + sessionId);
+            // Set content type and write the response
+            response.setContentType("text/html");
+            response.getWriter().write(htmlResponse);
             return;
         }
          // Fallback to a default URL if RelayState is not present
